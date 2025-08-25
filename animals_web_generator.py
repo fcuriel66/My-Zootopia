@@ -12,7 +12,7 @@ def read_html(file_name):
     """
        read a html file
     """
-    with open(file_name, "r") as handle:
+    with open(file_name, "r", encoding="utf-8") as handle:
         html_text = handle.read()
         return html_text
 
@@ -21,7 +21,7 @@ def write_html(html_text, file_name):
     """
     write an html file
     """
-    with open(file_name, "w") as handle:
+    with open(file_name, "w", encoding="utf-8") as handle:
         handle.write(html_text)
 
 
@@ -29,14 +29,16 @@ def generate_string(animals_data):
     output = ""     # define empty string
     for animal in animals_data:
         # append info to each string of info
-        output += f"Name: {animal["name"]}\n"
-        output += f"Diet: {animal["characteristics"]["diet"]}\n"
-        output += f"Location: {animal["locations"][0]}\n"
+        output += '<li class="cards_item"><br/>'
+        output += f"Name: {animal["name"]}<br/>\n"
+        output += f"Diet: {animal["characteristics"]["diet"]}<br/>\n"
+        output += f"Location: {animal["locations"][0]}<br/>\n"
         # add data of type value only if it exist in orig. data
         if "type" in animal["characteristics"]:
-            output += f"Type: {animal["characteristics"]["type"]}\n"
+            output += f"Type: {animal["characteristics"]["type"]}<br/>\n"
+            output += '</li><br/>'
         else:
-            continue
+            output += '</li><br/>'
     return output
 
 
@@ -45,7 +47,22 @@ def main():
     animals_string = generate_string(animals_data)
     html_template = read_html("animals_template.html")
     new_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_string)
-    write_html(new_html,"animals_data.html")
+    write_html(new_html, "animals_data.html")
+
 
 if __name__ == "__main__":
     main()
+
+# def generate_string(animals_data):
+#     output = ""     # define empty string
+#     for animal in animals_data:
+#         # append info to each string of info
+#         output += f"Name: {animal["name"]}\n"
+#         output += f"Diet: {animal["characteristics"]["diet"]}\n"
+#         output += f"Location: {animal["locations"][0]}\n"
+#         # add data of type value only if it exist in orig. data
+#         if "type" in animal["characteristics"]:
+#             output += f"Type: {animal["characteristics"]["type"]}\n"
+#         else:
+#             continue
+#     return output
