@@ -21,24 +21,28 @@ def write_html(html_text, file_name):
     """
     write an html file
     """
-    with open(file_name, "w", encoding="utf-8") as handle:
-        handle.write(html_text)
+    with open(file_name, "w", encoding="utf-8") as h:
+        h.write(html_text)
 
 
 def generate_string(animals_data):
     output = ""     # define empty string
     for animal in animals_data:
         # append info to each string of info
-        output += '<li class="cards_item"><br/>'
-        output += f"Name: {animal["name"]}<br/>\n"
-        output += f"Diet: {animal["characteristics"]["diet"]}<br/>\n"
-        output += f"Location: {animal["locations"][0]}<br/>\n"
+        output += '<li class="cards__item">'
+        output += f'<div class="card__title">{animal["name"]}</div>'
+        output += f'<p class="card__text"><br/>\n'
+        #output += f"Name: {animal["name"]}<br/>\n"
+        output += f"<strong>Diet:</strong> {animal["characteristics"]["diet"]}<br/>\n"
+        output += f"<strong>Location:</strong> {animal["locations"][0]}<br/>\n"
         # add data of type value only if it exist in orig. data
         if "type" in animal["characteristics"]:
-            output += f"Type: {animal["characteristics"]["type"]}<br/>\n"
-            output += '</li><br/>'
+            output += f"<strong>Type:</strong> {animal["characteristics"]["type"]}<br/>\n"
+            output += "</p>"
+            output += '</li><br/>\n'
         else:
-            output += '</li><br/>'
+            output += "</p>"
+            output += '</li><br/>\n'
     return output
 
 
