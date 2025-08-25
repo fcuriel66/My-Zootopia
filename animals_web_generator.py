@@ -3,40 +3,49 @@ import json
 def load_data(file_path):
     """
     load data from json file
-    :param file_path:
-    :return:
     """
     with open(file_path, "r") as handle:
         return json.load(handle)
 
 
-#animals_data = load_data("animals_data.json")
-#print(animals_data[5]["locations"])
+def read_html(file_name):
+    """
+       read a html file
+    """
+    with open(file_name, "r") as handle:
+        html_text = handle.read()
+        return html_text
 
-def print_animals(animals_data):
+
+def write_html(html_text, file_name):
     """
-    Extract and prints animal characteristics in desired format
-    stated in CODIO
-    :param animals_data:
-    :return:
+    write an html file
     """
+    with open(file_name, "w") as handle:
+        handle.write(html_text)
+
+
+def generate_string(animals_data):
+    output = ""     # define empty string
     for animal in animals_data:
-        print(f"Name: {animal["name"]}")    # Filtered directly as directory
-        print(f"Diet: {animal["characteristics"]["diet"]}") # Filtered by directory
-                                                            # hierarchy, 1st characteristics
-                                                            # and then diet.
-        print(f"Location: {animal["locations"][0]}") # Just the first location (0 elem)
-        if "type" in animal["characteristics"]: # Print type only if it exist in fox registry
-            print(f"Type: {animal["characteristics"]["type"]}")
+        # append info to each string of info
+        output += f"Name: {animal["name"]}\n"
+        output += f"Diet: {animal["characteristics"]["diet"]}\n"
+        output += f"Location: {animal["locations"][0]}\n"
+        # add data of type value only if it exist in orig. data
+        if "type" in animal["characteristics"]:
+            output += f"Type: {animal["characteristics"]["type"]}\n"
         else:
-            print()
             continue
-        print()
+    return output
+
 
 def main():
     animals_data = load_data("animals_data.json")
-    print_animals(animals_data)
+    animals_string = generate_string(animals_data)
+    html_template = read_html("animals_template.html")
+    new_html = html_template.replace("__REPLACE_ANIMALS_INFO__", animals_string)
+    write_html(new_html,"animals_data.html")
 
 if __name__ == "__main__":
     main()
-
