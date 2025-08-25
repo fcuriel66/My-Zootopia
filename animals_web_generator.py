@@ -56,17 +56,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-# def generate_string(animals_data):
-#     output = ""     # define empty string
-#     for animal in animals_data:
-#         # append info to each string of info
-#         output += f"Name: {animal["name"]}\n"
-#         output += f"Diet: {animal["characteristics"]["diet"]}\n"
-#         output += f"Location: {animal["locations"][0]}\n"
-#         # add data of type value only if it exist in orig. data
-#         if "type" in animal["characteristics"]:
-#             output += f"Type: {animal["characteristics"]["type"]}\n"
-#         else:
-#             continue
-#     return output
